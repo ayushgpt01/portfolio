@@ -1,11 +1,168 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Layout from "../layouts/Layout.astro";
+import Sidebar from "../components/Sidebar.astro";
+import SectionHeading from "../components/SectionHeading.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import ExperienceCard from "@components/ExperienceCard.astro";
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="Home">
+	<Sidebar slot="sidebar" />
+
+	<!-- HERO -->
+	<section id="hero" class="min-h-screen flex flex-col justify-center">
+		<p class="text-accent font-mono mb-4">Hi, my name is</p>
+		<h1
+			class="group relative w-fit text-4xl md:text-6xl font-heading font-bold mb-4"
+		>
+			<span
+				class="relative z-10 transition-colors duration-300 group-hover:text-white"
+			>
+				Ayush
+			</span>
+
+			<span
+				class="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100
+           		transition-opacity duration-300"
+			>
+				<span
+					class="absolute inset-0 text-accent blur-[1px]
+					group-hover:animate-[glow-flicker_0.7s_ease-out_0.05s]"
+				>
+					Ayush
+				</span>
+
+				<span
+					class="absolute inset-0 text-accent/70 blur-[6px]
+					group-hover:animate-[glow-flicker_0.7s_ease-out_0.05s]"
+				>
+					Ayush
+				</span>
+			</span>
+		</h1>
+		<p class="text-muted max-w-xl">
+			I build clean, performant web applications with a focus on
+			simplicity and usability.
+		</p>
+	</section>
+
+	<!-- EXPERIENCE -->
+	<section id="experience" class="py-section">
+		<SectionHeading number="01" title="Experience" />
+		<div
+			class="flex flex-col gap-1.5 relative"
+			data-spotlight-container
+			style="--x: 50%; --y: 50%;"
+		>
+			<ExperienceCard
+				title="Software Developer"
+				company="Busibud"
+				range="2023 - Present"
+				description="Handle end-to-end development cycle"
+				tech={["Go", "React", "Javascript"]}
+			/>
+		</div>
+	</section>
+
+	<!-- PROJECTS -->
+	<section id="projects" class="py-section">
+		<SectionHeading number="02" title="Projects" />
+
+		<div class="grid md:grid-cols-2 gap-6">
+			<ProjectCard
+				title="Chat App"
+				description="Real-time chat using WebSockets."
+				tech={["Go", "WebSockets", "Postgres"]}
+			/>
+
+			<ProjectCard
+				title="Portfolio"
+				description="Minimal Astro-based portfolio."
+				tech={["Astro", "Tailwind"]}
+			/>
+		</div>
+	</section>
+
+	<!-- CONTACT -->
+	<section id="contact" class="py-section mb-32">
+		<SectionHeading number="03" title="Contact" />
+
+		<p class="text-muted mb-6">Open to opportunities and collaborations.</p>
+
+		<a
+			href="mailto:you@example.com"
+			class="inline-block border border-accent text-accent px-6 py-3 rounded hover:bg-accent/10 transition"
+		>
+			Say Hello
+		</a>
+	</section>
 </Layout>
+
+<script is:inline>
+	const container = document.querySelector("[data-spotlight-container]");
+
+	if (container) {
+		let currentX = 0;
+		let currentY = 0;
+		let targetX = 0;
+		let targetY = 0;
+		let isInside = false;
+
+		const lerp = (a, b, n) => a + (b - a) * n;
+
+		function update() {
+			if (isInside) {
+				currentX = lerp(currentX, targetX, 0.12);
+				currentY = lerp(currentY, targetY, 0.12);
+			}
+
+			container.style.setProperty("--x", `${currentX}px`);
+			container.style.setProperty("--y", `${currentY}px`);
+
+			requestAnimationFrame(update);
+		}
+
+		update();
+
+		container.addEventListener("mousemove", (e) => {
+			const rect = container.getBoundingClientRect();
+			targetX = e.clientX - rect.left;
+			targetY = e.clientY - rect.top;
+			isInside = true;
+		});
+
+		container.addEventListener("mouseleave", () => {
+			targetX = container.offsetWidth / 2;
+			targetY = container.offsetHeight / 2;
+			isInside = false;
+		});
+	}
+</script>
+
+<script is:inline>
+	function updateCardOffsets() {
+		const container = document.querySelector("[data-spotlight-container]");
+		const cards = document.querySelectorAll("[data-card]");
+		if (!container || !cards.length) return;
+
+		const containerRect = container.getBoundingClientRect();
+
+		cards.forEach((card) => {
+			const rect = card.getBoundingClientRect();
+
+			card.style.setProperty(
+				"--offset-x",
+				`${rect.left - containerRect.left}px`,
+			);
+			card.style.setProperty(
+				"--offset-y",
+				`${rect.top - containerRect.top}px`,
+			);
+		});
+	}
+
+	window.addEventListener("resize", updateCardOffsets);
+	window.addEventListener("scroll", updateCardOffsets);
+
+	requestAnimationFrame(updateCardOffsets);
+</script>

@@ -1,0 +1,90 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "GeistMono";
+  src: url("/fonts/GeistMono.woff2") format("woff2");
+  font-weight: 100 900; 
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "GeistMono";
+  src: url("/fonts/GeistMono-Italic.woff2") format("woff2");
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "GeistPixel";
+  src: url("/fonts/GeistPixel-Triangle.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+}
+
+@theme {
+  --font-heading: "GeistPixel", sans-serif;
+}
+
+/* Design tokens */
+:root {
+  --color-bg: #0A192F;
+  --color-surface: #112240;
+  --color-text: #CCD6F6;
+  --color-muted: #8892B0;
+  --color-accent: #64FFDA;
+  --font-body: "GeistMono", monospace;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body), Inter, system-ui, sans-serif;
+}
+
+.grid-overlay {
+  background-image:
+    linear-gradient(rgba(255,255,255,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.04) 1px, transparent 1px);
+
+  background-size: 40px 40px;
+
+  mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    black 10%,
+    black 90%,
+    transparent
+  );
+
+  filter: blur(0.2px);
+}
+
+.py-section {
+  /* padding-top: 6rem; */
+  padding-bottom: 6rem;
+}
+
+@keyframes glow-flicker {
+   0%   { filter: brightness(0); }
+
+  8%   { filter: brightness(1.2); }
+  14%  { filter: brightness(0.2); }
+
+  22%  { filter: brightness(1.1); }
+  30%  { filter: brightness(0.1); }
+
+  38%  { filter: brightness(0.9); }
+  46%  { filter: brightness(0.3); }
+
+  58%  { filter: brightness(1.05); }
+  70%  { filter: brightness(0.6); }
+
+  85%  { filter: brightness(1.1); }
+  100% { filter: brightness(1); }
+}
