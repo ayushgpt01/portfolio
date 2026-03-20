@@ -71,7 +71,7 @@ body {
 }
 
 @keyframes glow-flicker {
-   0%   { filter: brightness(0); }
+  0%   { filter: brightness(0); }
 
   8%   { filter: brightness(1.2); }
   14%  { filter: brightness(0.2); }
@@ -87,4 +87,8 @@ body {
 
   85%  { filter: brightness(1.1); }
   100% { filter: brightness(1); }
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
 }

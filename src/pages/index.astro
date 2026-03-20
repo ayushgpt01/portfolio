@@ -10,40 +10,89 @@ import ExperienceCard from "@components/ExperienceCard.astro";
 	<Sidebar slot="sidebar" />
 
 	<!-- HERO -->
-	<section id="hero" class="min-h-screen flex flex-col justify-center">
-		<p class="text-accent font-mono mb-4">Hi, my name is</p>
-		<h1
-			class="group relative w-fit text-4xl md:text-6xl font-heading font-bold mb-4"
-		>
-			<span
-				class="relative z-10 transition-colors duration-300 group-hover:text-white"
+	<section
+		id="hero"
+		class="min-h-screen grid md:grid-cols-2 items-center gap-12"
+	>
+		<div>
+			<p class="text-accent font-mono mb-4">Hi, my name is</p>
+			<h1
+				class="group relative w-fit text-4xl md:text-6xl font-heading font-bold mb-4"
 			>
-				Ayush
-			</span>
+				<span
+					class="relative z-10 transition-colors duration-300 group-hover:text-white"
+				>
+					Ayush
+				</span>
 
-			<span
-				class="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100
+				<span
+					class="pointer-events-none absolute inset-0 opacity-0 group-hover:opacity-100
            		transition-opacity duration-300"
-			>
-				<span
-					class="absolute inset-0 text-accent blur-[1px]
-					group-hover:animate-[glow-flicker_0.7s_ease-out_0.05s]"
 				>
-					Ayush
-				</span>
+					<span
+						class="absolute inset-0 text-accent blur-[1px]
+					group-hover:animate-[glow-flicker_0.7s_ease-out_0.05s]"
+					>
+						Ayush
+					</span>
 
-				<span
-					class="absolute inset-0 text-accent/70 blur-[6px]
+					<span
+						class="absolute inset-0 text-accent/70 blur-[6px]
 					group-hover:animate-[glow-flicker_0.7s_ease-out_0.05s]"
-				>
-					Ayush
+					>
+						Ayush
+					</span>
 				</span>
-			</span>
-		</h1>
-		<p class="text-muted max-w-xl">
-			I build clean, performant web applications with a focus on
-			simplicity and usability.
-		</p>
+			</h1>
+			<p class="text-muted max-w-xl">
+				I build clean, performant web applications with a focus on
+				simplicity and usability.
+			</p>
+		</div>
+
+		<div class="hidden md:flex items-center justify-center">
+			<div class="group relative w-full flex justify-center items-center">
+				<div
+					class="relative text-xs font-heading text-muted border border-white/10 rounded-md p-4
+             bg-surface/60 backdrop-blur-sm group-hover:border-white/20 transition-colors duration-300"
+				>
+					<p
+						class="opacity-70 group-hover:opacity-100 transition duration-300"
+					>
+						$ whoami<span
+							class="ml-1 animate-[blink_1s_step-end_infinite]"
+							>_</span
+						>
+					</p>
+					<p
+						class="text-foreground opacity-80 group-hover:opacity-100 transition duration-300 delay-75"
+					>
+						ayushgpt01
+					</p>
+					<p
+						class="mt-2 opacity-70 group-hover:opacity-100 transition duration-300 delay-150"
+					>
+						$ stack
+					</p>
+					<p
+						class="opacity-70 group-hover:opacity-100 transition duration-300 delay-200"
+					>
+						go • react • postgres • aws
+					</p>
+
+					<div
+						class="pointer-events-none absolute -inset-10 opacity-60"
+						style="
+								background: radial-gradient(
+									circle at center,
+									rgba(16,185,129,0.15),
+									transparent 70%
+								);"
+					>
+					</div>
+				</div>
+			</div>
+		</div>
 	</section>
 
 	<!-- EXPERIENCE -->
@@ -59,7 +108,7 @@ import ExperienceCard from "@components/ExperienceCard.astro";
 				company="Busibud"
 				range="2023 - Present"
 				description="Handle end-to-end development cycle"
-				tech={["Go", "React", "Javascript"]}
+				tech={["React", "Typescript", "Laravel"]}
 			/>
 		</div>
 	</section>
@@ -68,7 +117,11 @@ import ExperienceCard from "@components/ExperienceCard.astro";
 	<section id="projects" class="py-section">
 		<SectionHeading number="02" title="Projects" />
 
-		<div class="grid md:grid-cols-2 gap-6">
+		<div
+			class="grid md:grid-cols-2 gap-6 relative"
+			data-spotlight-container
+			style="--x: 50%; --y: 50%;"
+		>
 			<ProjectCard
 				title="Chat App"
 				description="Real-time chat using WebSockets."
@@ -99,9 +152,9 @@ import ExperienceCard from "@components/ExperienceCard.astro";
 </Layout>
 
 <script is:inline>
-	const container = document.querySelector("[data-spotlight-container]");
+	const containers = document.querySelectorAll("[data-spotlight-container]");
 
-	if (container) {
+	containers.forEach((container) => {
 		let currentX = 0;
 		let currentY = 0;
 		let targetX = 0;
@@ -132,32 +185,33 @@ import ExperienceCard from "@components/ExperienceCard.astro";
 		});
 
 		container.addEventListener("mouseleave", () => {
-			targetX = container.offsetWidth / 2;
-			targetY = container.offsetHeight / 2;
 			isInside = false;
 		});
-	}
+	});
 </script>
 
 <script is:inline>
 	function updateCardOffsets() {
-		const container = document.querySelector("[data-spotlight-container]");
-		const cards = document.querySelectorAll("[data-card]");
-		if (!container || !cards.length) return;
+		const containers = document.querySelectorAll(
+			"[data-spotlight-container]",
+		);
 
-		const containerRect = container.getBoundingClientRect();
+		containers.forEach((container) => {
+			const cards = container.querySelectorAll("[data-card]");
+			const containerRect = container.getBoundingClientRect();
 
-		cards.forEach((card) => {
-			const rect = card.getBoundingClientRect();
+			cards.forEach((card) => {
+				const rect = card.getBoundingClientRect();
 
-			card.style.setProperty(
-				"--offset-x",
-				`${rect.left - containerRect.left}px`,
-			);
-			card.style.setProperty(
-				"--offset-y",
-				`${rect.top - containerRect.top}px`,
-			);
+				card.style.setProperty(
+					"--offset-x",
+					`${rect.left - containerRect.left}px`,
+				);
+				card.style.setProperty(
+					"--offset-y",
+					`${rect.top - containerRect.top}px`,
+				);
+			});
 		});
 	}
 

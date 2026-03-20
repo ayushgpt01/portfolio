@@ -29,7 +29,7 @@ const { title, company, range, link, description, tech } = Astro.props;
                     400px circle at 
                     calc(var(--x) - var(--offset-x)) 
                     calc(var(--y) - var(--offset-y)),
-                    rgba(16,185,129,0.12),
+                    rgba(16,185,129,0.08),
                     transparent 60%
                 );"
         >
@@ -95,12 +95,13 @@ const { title, company, range, link, description, tech } = Astro.props;
                 tech.map((t) => (
                     <span
                         class="text-[11px] px-2 py-1 rounded-md 
-                   bg-[rgba(16,185,129,0.08)] 
-                   text-[rgb(16,185,129)] 
-                   border border-[rgba(16,185,129,0.15)]
-                   transition-all duration-200
-                   group-hover:bg-[rgba(16,185,129,0.12)]
-                   group-hover:border-[rgba(16,185,129,0.25)]"
+                        bg-[rgba(16,185,129,0.06) 
+                        text-[rgb(16,185,129)] 
+                        border border-[rgba(16,185,129,0.12)] 
+                        transition-all duration-200 
+                        group-hover:bg-[rgba(16,185,129,0.1) 
+                        group-hover:border-[rgba(16,185,129,0.2)] 
+                        group-hover:shadow-[0_0_8px_rgba(16,185,129,0.15)]"
                     >
                         {t}
                     </span>
