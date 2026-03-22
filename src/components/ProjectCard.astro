@@ -3,9 +3,10 @@ interface Props {
     title: string;
     description: string;
     tech: string[];
+    link?: string;
 }
 
-const { title, description, tech } = Astro.props;
+const { title, description, tech, link } = Astro.props;
 ---
 
 <div
@@ -15,6 +16,17 @@ const { title, description, tech } = Astro.props;
     style="--offset-x: 0px; --offset-y: 0px;"
     data-card
 >
+    {
+        link && (
+            <a
+                href={link}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="absolute inset-0 z-20"
+                aria-label={title}
+            />
+        )
+    }
     <!-- glow layer -->
     <div
         class="pointer-events-none absolute inset-0 rounded-md opacity-0
@@ -46,11 +58,22 @@ const { title, description, tech } = Astro.props;
     </div>
 
     <!-- content -->
-    <div class="relative p-5">
+    <div class="relative p-5 z-10">
         <h3
-            class="text-base font-medium mb-2 transition-colors duration-200 group-hover:text-foreground"
+            class="flex items-center gap-1 text-base font-medium mb-2
+           transition-colors duration-200 group-hover:text-foreground"
         >
             {title}
+            {
+                link && (
+                    <span
+                        class="text-[10px] transition-transform duration-200 
+                 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                    >
+                        ↗
+                    </span>
+                )
+            }
         </h3>
 
         <p class="text-sm text-muted leading-relaxed mb-4">

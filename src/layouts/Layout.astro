@@ -3,9 +3,11 @@ import "../styles/global.css";
 
 interface Props {
 	title?: string;
+	description?: string;
 }
 
-const { title = "Portfolio" } = Astro.props;
+const { title = "Portfolio", description = "Portfolio website" } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
@@ -13,17 +15,62 @@ const { title = "Portfolio" } = Astro.props;
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
+
+		<!-- <link rel="icon" href="/favicon.svg" type="image/svg+xml" /> -->
+		<link rel="icon" href="/favicon.ico" sizes="any" />
+		<link
+			rel="apple-touch-icon"
+			sizes="180x180"
+			href="/apple-touch-icon.png"
+		/>
+
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="32x32"
+			href="/favicon-32x32.png"
+		/>
+		<link
+			rel="icon"
+			type="image/png"
+			sizes="16x16"
+			href="/favicon-16x16.png"
+		/>
+		<link rel="manifest" href="/site.webmanifest" />
+		<meta name="theme-color" content="#112240" />
+
 		<meta name="generator" content={Astro.generator} />
+		<meta name="description" content={description} />
+		<link rel="canonical" href={canonicalURL} />
+
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:type" content="website" />
+		<meta property="og:url" content={canonicalURL} />
+		<!-- <meta property="og:image" content="/og-image.png" /> -->
+
+		<meta name="twitter:card" content="summary" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<!-- <meta name="twitter:image" content="/og-image.png" /> -->
+
+		<link rel="sitemap" href="/sitemap-index.xml" />
+
 		<title>{title}</title>
 	</head>
 	<body class="text-text font-sans">
 		<div class="flex">
 			<slot name="sidebar" />
 			<main class="flex-1 px-8 md:px-16 lg:px-24">
-				<div class="grid-overlay">
-					<slot />
+				<div class="relative">
+					<div
+						class="grid-overlay pointer-events-none absolute inset-0"
+					>
+					</div>
+
+					<div class="relative z-10">
+						<slot />
+					</div>
 				</div>
 			</main>
 		</div>

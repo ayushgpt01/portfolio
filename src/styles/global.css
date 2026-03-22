@@ -62,7 +62,7 @@ body {
     transparent
   );
 
-  filter: blur(0.2px);
+  filter: blur(0.15px);
 }
 
 .py-section {

@@ -6,7 +6,7 @@ import ProjectCard from "../components/ProjectCard.astro";
 import ExperienceCard from "@components/ExperienceCard.astro";
 ---
 
-<Layout title="Home">
+<Layout title="Ayush Gupta">
 	<Sidebar slot="sidebar" />
 
 	<!-- HERO -->
@@ -67,7 +67,7 @@ import ExperienceCard from "@components/ExperienceCard.astro";
 					<p
 						class="text-foreground opacity-80 group-hover:opacity-100 transition duration-300 delay-75"
 					>
-						ayushgpt01
+						ayushgpt01 (Ayush Gupta)
 					</p>
 					<p
 						class="mt-2 opacity-70 group-hover:opacity-100 transition duration-300 delay-150"
@@ -77,7 +77,7 @@ import ExperienceCard from "@components/ExperienceCard.astro";
 					<p
 						class="opacity-70 group-hover:opacity-100 transition duration-300 delay-200"
 					>
-						go • react • postgres • aws
+						react • java • go • postgres • aws
 					</p>
 
 					<div
@@ -97,7 +97,7 @@ import ExperienceCard from "@components/ExperienceCard.astro";
 
 	<!-- EXPERIENCE -->
 	<section id="experience" class="py-section">
-		<SectionHeading number="01" title="Experience" />
+		<SectionHeading title="Experience" />
 		<div
 			class="flex flex-col gap-1.5 relative"
 			data-spotlight-container
@@ -108,14 +108,21 @@ import ExperienceCard from "@components/ExperienceCard.astro";
 				company="Busibud"
 				range="2023 - Present"
 				description="Handle end-to-end development cycle"
-				tech={["React", "Typescript", "Laravel"]}
+				tech={[
+					"React",
+					"Typescript",
+					"Java",
+					"Spring",
+					"Laravel",
+					"Postgres",
+				]}
 			/>
 		</div>
 	</section>
 
 	<!-- PROJECTS -->
 	<section id="projects" class="py-section">
-		<SectionHeading number="02" title="Projects" />
+		<SectionHeading title="Projects" />
 
 		<div
 			class="grid md:grid-cols-2 gap-6 relative"
@@ -125,30 +132,89 @@ import ExperienceCard from "@components/ExperienceCard.astro";
 			<ProjectCard
 				title="Chat App"
 				description="Real-time chat using WebSockets."
-				tech={["Go", "WebSockets", "Postgres"]}
+				tech={["Go", "React", "AWS", "WebSockets", "Postgres"]}
+				link="https://ayushgpt01.com"
 			/>
 
 			<ProjectCard
 				title="Portfolio"
-				description="Minimal Astro-based portfolio."
+				description="Minimal portfolio built using Astro. (You are currently visiting this)"
 				tech={["Astro", "Tailwind"]}
+			/>
+
+			<ProjectCard
+				title="Other Projects"
+				description="Check my github for other projects I am working on."
+				tech={[]}
+				link="https://github.com/ayushgpt01?tab=repositories"
 			/>
 		</div>
 	</section>
 
 	<!-- CONTACT -->
 	<section id="contact" class="py-section mb-32">
-		<SectionHeading number="03" title="Contact" />
+		<SectionHeading title="Contact" />
 
 		<p class="text-muted mb-6">Open to opportunities and collaborations.</p>
 
-		<a
-			href="mailto:you@example.com"
-			class="inline-block border border-accent text-accent px-6 py-3 rounded hover:bg-accent/10 transition"
-		>
-			Say Hello
-		</a>
+		<div class="flex items-center gap-4">
+			<a
+				href="mailto:ayushgpt043@gmail.com"
+				class="inline-block border border-accent text-accent px-6 py-3 rounded hover:text-white
+			hover:bg-accent/10 transition duration-300"
+			>
+				Say Hello
+			</a>
+
+			<a
+				href="/resume.pdf"
+				target="_blank"
+				class="text-sm text-muted hover:text-foreground transition flex items-center gap-1"
+			>
+				View Resume
+				<span class="text-xs">↗</span>
+			</a>
+		</div>
 	</section>
+
+	<div class="mt-24 pt-6 border-t border-white/5">
+		<p class="text-xs font-mono flex flex-wrap items-center gap-x-2">
+			<span class="text-muted/70">built with</span>
+
+			<a
+				href="https://astro.build/"
+				class="text-muted hover:text-foreground transition
+			hover:[text-shadow:0_0_6px_rgba(16,185,129,0.6)]"
+				target="_blank"
+				rel="noopener noreferrer"
+			>
+				astro
+			</a>
+			<span class="text-muted/40">•</span>
+
+			<a
+				href="https://tailwindcss.com/"
+				class="text-muted hover:text-foreground transition
+			hover:[text-shadow:0_0_6px_rgba(16,185,129,0.6)]"
+				target="_blank"
+				rel="noopener noreferrer"
+			>
+				tailwind
+			</a>
+
+			<span class="text-muted/70 ml-2">deployed on</span>
+
+			<a
+				href="https://www.cloudflare.com/"
+				class="text-muted hover:text-foreground transition
+			hover:[text-shadow:0_0_6px_rgba(16,185,129,0.6)]"
+				target="_blank"
+				rel="noopener noreferrer"
+			>
+				cloudflare
+			</a>
+		</p>
+	</div>
 </Layout>
 
 <script is:inline>
